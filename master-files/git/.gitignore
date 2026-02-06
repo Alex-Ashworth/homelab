@@ -1,0 +1,24 @@
+# SSH secrets
+**/.ssh/id_*
+**/.ssh/*_rsa
+**/.ssh/*_dsa
+**/.ssh/*_ecdsa
+**/.ssh/*_ed25519
+**/.ssh/git*
+**/.ssh/known_hosts
+**/.ssh/config.d/*secrets*
+**/.gnupg/
+
+# Tooling artifacts
+node_modules/
+dist/
+build/
+.venv/
+__pycache__/
+*.pyc
+
+# Backups
+*.bak
+*.old
+
+# Ignored files
