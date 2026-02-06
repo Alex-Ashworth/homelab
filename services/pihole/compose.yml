@@ -1,0 +1,29 @@
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8081:80/tcp"
+      - "8443:443/tcp"
+      # If you want Pi-hole to be your DHCP server (usually easier to keep DHCP on router):
+      # - "67:67/udp"
+    environment:
+      TZ: 'America/Chicago'
+      # Not setting one generates a random password
+      FTLCONF_webserver_api_password: ${API_PASSWORD}
+      # If using default Docker bridge, keep listening mode ALL
+      FTLCONF_dns_listeningMode: 'ALL'
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      # v6 note: this is usually not needed unless migrating/custom configs
+      # - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    cap_add:
+      # Needed if using Pi-hole as DHCP server
+      - NET_ADMIN
+      # Optional
+      - SYS_TIME
+      - SYS_NICE
+    restart: unless-stopped
+
