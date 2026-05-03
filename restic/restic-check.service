@@ -1,0 +1,13 @@
+[Unit]
+Description=Restic repository check
+Wants=network-online.target docker.service
+After=network-online.target docker.service
+Conflicts=restic-backup@%i.service restic-prune.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/srv/restic/.env
+ExecStart=/srv/scripts/restic-check.sh %i
+
+PrivateTmp=true
+NoNewPrivileges=true

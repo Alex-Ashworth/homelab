@@ -1,0 +1,16 @@
+[Unit]
+Description=Restic backup for %i to rest-server
+Wants=network-online.target docker.service
+After=network-online.target docker.service
+Conflicts=restic-prune.service restic-check.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/srv/restic/%i.env
+ExecStart=/srv/scripts/restic-backup.sh
+
+RuntimeDirectory=restic
+RuntimeDirectoryMode=0750
+
+PrivateTmp=true
+NoNewPrivileges=true

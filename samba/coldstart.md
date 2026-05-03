@@ -1,3 +1,5 @@
+Set-up Samba with Windows Network Discovery
+
 ```bash
 sudo wipefs -a /dev/sdb
 sudo parted /dev/sdb --mklabel gpt

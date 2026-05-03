@@ -1,0 +1,13 @@
+[Unit]
+Description=Restic prune/retention maintenance for local repositories
+Wants=network-online.target
+After=network-online.target
+Conflicts=restic-backup@%i.service restic-check.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/srv/restic/restic.env
+ExecStart=/srv/scripts/restic-prune.sh
+
+PrivateTmp=true
+NoNewPrivileges=true

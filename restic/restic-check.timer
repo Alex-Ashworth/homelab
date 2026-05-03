@@ -1,0 +1,11 @@
+[Unit]
+Description=Run weekly retic repository check
+
+[Timer]
+OnCalendar=Sun *-*-* 03:45:00
+Persistent=true
+RandomizedDelaySec=5m
+Unit=restic-check.service
+
+[Install]
+WantedBy=timers.target

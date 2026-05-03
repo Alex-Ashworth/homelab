@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Restic prune maintenance for %i weekly
+
+[Timer]
+OnCalendar=Sun *-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=5m
+Unit=restic-prune.service
+
+[Install]
+WantedBy=timers.target

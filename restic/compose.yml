@@ -7,6 +7,6 @@ services:
       OPTIONS: "--append-only"
     volumes:
       - /srv/storage/backups/restic:/data
-      - /srv/restic/auth/htpasswd:/data/.htpasswd:ro
+      - /srv/restic/auth/.htpasswd:/data/.htpasswd:ro
     ports:
       - "100.87.48.104:8000:8000"
