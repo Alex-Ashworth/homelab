@@ -61,6 +61,7 @@ This repo should not contain real secrets, passwords, private keys, tokens, or l
 | `prometheus/` | Metrics collection and monitoring backend |
 | `restic/` | Backup scripts, prune/check timers, repo notes, and restore documentation |
 | `samba/` | SMB file sharing configuration and storage share notes |
+| `tailscale/` | Private network access for SSH, internal service connections, and secure access to NGINX-routed web services |
 | `ufw/` | Firewall rules, policies, and host access documentation |
 | `unbound/` | Recursive DNS resolver configuration, likely paired with Pi-hole |
 | `uptime-kuma/` | Service uptime monitoring and alerting |
@@ -482,6 +483,32 @@ Do not commit real database passwords.
 
 ---
 
+## Tailscale
+
+Tailscale provides the private network layer for the homelab.
+
+It is used for secure remote access, private host-to-host communication, SSH access, and controlled access to internal services. The goal is to keep administrative access and internal service traffic private while minimizing directly exposed ports on the LAN or public internet.
+
+### Primary Uses
+
+| Use Case | Purpose |
+|---|---|
+| SSH access | Provide secure administrative access to homelab hosts without exposing port `22` publicly |
+| Internal service connectivity | Allow trusted devices and hosts to communicate over the private tailnet |
+| Private service access | Access internal dashboards, admin panels, and management interfaces without public exposure |
+| NGINX-backed web access | Support web services that are routed through NGINX, including services that may be exposed publicly when needed |
+| Remote administration | Manage the homelab securely from approved devices outside the local network |
+
+### Access Model
+
+```text
+Admin device
+    ↓
+Tailscale
+    ↓
+Homelab host
+    ↓
+NGINX / Docker / internal services
 ## Nextcloud
 
 Nextcloud-related directory:
