@@ -1,0 +1,8 @@
+[Unit]
+Description=Renew let's encrypt certificates using dockerized certbot
+Requires=docker.service
+After=docker.service network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/srv/scripts/certbot-renew-docker.sh

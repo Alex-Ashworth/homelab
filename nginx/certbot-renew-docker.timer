@@ -1,0 +1,9 @@
+[Unit]
+Description=Run dockerized certbot renewal weekly
+
+[Timer]
+OnCalendar=Sun *-*-* 01:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

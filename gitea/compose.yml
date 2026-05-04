@@ -1,0 +1,43 @@
+services:
+  postgres-gitea:
+    image: postgres:16-alpine
+    container_name: postgres-gitea
+    restart: unless-stopped
+    env_file:
+      - gitea.env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - /srv/storage/gitea/postgres/gitea/data:/var/lib/postgresql/data
+    networks:
+      - gitea-internal
+
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    restart: unless-stopped
+    depends_on:
+      - postgres-gitea
+    env_file:
+      - gitea.env
+    environment:
+      USER_UID: 1000
+      USER_GID: 1000
+    volumes:
+      - /srv/storage/docker/gitea/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "127.0.0.1:3000:3000"
+      - "100.87.48.104:52599:22"
+    networks:
+      - gitea-internal
+      - proxy
+
+networks:
+  gitea-internal:
+    driver: bridge
+  proxy:
+    external: true
