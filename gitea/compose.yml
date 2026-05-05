@@ -4,13 +4,13 @@ services:
     container_name: postgres-gitea
     restart: unless-stopped
     env_file:
-      - gitea.env
+      - .env
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - /srv/storage/gitea/postgres/gitea/data:/var/lib/postgresql/data
+      - /srv/storage/services/gitea/postgres/data:/var/lib/postgresql/data
     networks:
       - gitea-internal
 
@@ -21,12 +21,12 @@ services:
     depends_on:
       - postgres-gitea
     env_file:
-      - gitea.env
+      - .env
     environment:
       USER_UID: 1000
       USER_GID: 1000
     volumes:
-      - /srv/storage/docker/gitea/data:/data
+      - /srv/storage/services/gitea/data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
