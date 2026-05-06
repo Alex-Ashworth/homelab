@@ -1,0 +1,39 @@
+services:
+  unbound:
+    image: mvance/unbound:latest
+    container_name: unbound
+    restart: unless-stopped
+    volumes:
+      - /srv/pihole/unbound:/opt/unbound/etc/unbound
+    networks:
+      - dns
+
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TZ: ${PIHOLE_TZ}
+      FTLCONF_webserver_api_password: ${PIHOLE_WEBPASSWORD}
+      FTLCONF_dns_upstreams: ${PIHOLE_UPSTREAMS}
+      FTLCONF_dns_listeningMode: ${PIHOLE_DNS_LISTENING_MODE}
+    volumes:
+      - /srv/pihole/etc-pihole:/etc/pihole
+      - /srv/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+    ports:
+      - "192.168.1.204:53:53/tcp"
+      - "192.168.1.204:53:53/udp"
+      - "127.0.0.1:8081:80"
+    depends_on:
+      - unbound
+    networks:
+      - dns
+      - proxy
+
+networks:
+  dns:
+    driver: bridge
+  proxy:
+    external: true
