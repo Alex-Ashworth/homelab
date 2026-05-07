@@ -1,0 +1,21 @@
+services:
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: ntfy
+    restart: unless-stopped
+    command:
+      - serve
+    volumes:
+      - /srv/ntfy/cache:/var/cache/ntfy
+      - /srv/ntfy/config:/etc/ntfy
+    ports:
+      - "127.0.0.1:8088:80"
+    networks:
+      - proxy
+      - telemetry
+
+networks:
+  proxy:
+    external: true
+  telemetry:
+    external: true

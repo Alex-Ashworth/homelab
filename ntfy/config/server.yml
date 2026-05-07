@@ -1,0 +1,6 @@
+base-url: "https://ntfy.alex-ashworth.com"
+cache-file: "/var/cache/ntfy/cache.db"
+auth-file: "/etc/ntfy/user.db"
+auth-default-access: "deny-all"
+behind-proxy: true
+listen-http: ":80"
