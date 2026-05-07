@@ -1,0 +1,18 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: uptime-kuma
+    restart: unless-stopped
+    volumes:
+      - /srv/uptime-kuma/data:/app/data
+    ports:
+      - "127.0.0.1:3001:3001"
+    networks:
+      - proxy
+      - telemetry
+
+networks:
+  proxy:
+    external: true
+  telemetry:
+    external: true
