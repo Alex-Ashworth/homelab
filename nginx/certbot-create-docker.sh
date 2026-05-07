@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+NGINX_DIR="/srv/nginx"
+
 main() {
   local cert="${1:-}"
   local domain="${2:-}"
@@ -10,12 +12,10 @@ main() {
   [[ -z "$cert" ]] && read -rp "Enter certificate name: " cert
   [[ -z "$domain" ]] && read -rp "Enter domain name: " domain
   [[ -z "$email" ]] && read -rp "Enter email address: " email
+  
+  cd "$NGINX_DIR"
 
-  docker run --rm \
-    -v /srv/nginx/certbot/conf:/etc/letsencrypt \
-    -v /srv/nginx/secrets/cloudflare.ini:/cloudflare.ini:ro \
-    certbot/dns-cloudflare certonly \
-    --force-renewal \
+  docker copmpose run --rm certbot certonly \
     --cert-name "$cert" \
     --dns-cloudflare \
     --dns-cloudflare-credentials /cloudflare.ini \
@@ -24,6 +24,8 @@ main() {
     --email "$email" \
     --agree-tos \
     --no-eff-email
+
+  docker exec nginx nginx -s reload
 }
 
 main "$@"

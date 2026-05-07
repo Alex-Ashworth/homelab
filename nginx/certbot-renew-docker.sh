@@ -1,9 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-docker run --rm \
-  -v /srv/nginx/certbot/conf:/etc/letsencrypt \
-  -v /srv/nginx/secrets/cloudflare.ini:/cloudflare.ini:ro \
-  certbot/dns-cloudflare renew
+NGINX_DIR="/srv/nginx"
 
+cd "$NGINX_DIR"
+docker compose run --rm certbot renew
 docker exec nginx nginx -s reload
