@@ -3,10 +3,14 @@ services:
     image: restic/rest-server:latest
     container_name: rest-server
     restart: unless-stopped
-    environment:
-      OPTIONS: "--append-only"
     volumes:
       - /srv/storage/backups/restic:/data
       - /srv/restic/auth/.htpasswd:/data/.htpasswd:ro
     ports:
       - "100.87.48.104:8000:8000"
+    networks:
+      - backup
+
+networks:
+  backup:
+    external: true

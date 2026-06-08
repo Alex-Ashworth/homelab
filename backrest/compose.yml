@@ -1,0 +1,30 @@
+services:
+  backrest:
+    image: garethgeorge/backrest:latest
+    container_name: backrest
+    restart: unless-stopped
+    volumes:
+      - /srv/backrest/data:/data
+      - /srv/backrest/config:/config
+      - /srv/backrest/cache:/cache
+      - /srv/storage/backups/restic:/mnt/backups
+      - /srv:/mnt/srv:ro
+      - /etc:/mnt/etc:ro
+      - /home:/mnt/home:ro
+      - /srv/backrest/restore:/restore
+    environment:
+      BACKREST_DATA: /data
+      BACKREST_CONFIG: /config/config.json
+      XDG_CACHE_HOME: /cache
+      TZ: America/Chicago
+    ports:
+      - "100.87.48.104:9898:9898"
+    networks:
+      - proxy
+      - backup
+
+networks:
+  proxy:
+    external: true
+  backup:
+    external: true
