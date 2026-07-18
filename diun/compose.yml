@@ -1,0 +1,21 @@
+services:
+  diun:
+    image: crazymax/diun:latest
+    container_name: diun
+    restart: unless-stopped
+    command: serve
+    volumes:
+      - /srv/diun/data:/data
+      - /srv/diun/config/diun.yml:/diun.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      TZ: America/Chicago
+      LOG_LEVEL: info
+      LOG_JSON: false
+      DIUN_CONFIG: /diun.yml
+    networks:
+      - telemetry
+
+networks:
+  telemetry:
+    external: true

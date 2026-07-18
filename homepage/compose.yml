@@ -1,0 +1,22 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    environment:
+      PUID: 1000
+      PGID: 1000
+      HOMEPAGE_ALLOWED_HOSTS: hub.alex-ashworth.com
+    volumes:
+      - /srv/homepage/config:/app/config
+      # Docker socket enables automatic discovery but increases risk.
+      # Default to manual configuration.
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "127.0.0.1:3003:3000"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

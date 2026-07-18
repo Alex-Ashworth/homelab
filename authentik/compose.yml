@@ -1,0 +1,59 @@
+services:
+  authentik-postgres:
+    image: postgres:16-alpine
+    container_name: authentik-postgres
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - /srv/authentik/postgres:/var/lib/postgresql/data
+    networks:
+      - authentik-internal
+
+  authentik-redis:
+    image: redis:7-alpine
+    container_name: authentik-redis
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - /srv/authentik/redis:/data
+    networks:
+      - authentik-internal
+
+  authentik-server:
+    image: ghcr.io/goauthentik/server:latest
+    container_name: authentik-server
+    restart: unless-stopped
+    command: server
+    env_file: .env
+    depends_on:
+      - authentik-postgres
+      - authentik-redis
+    volumes:
+      - /srv/authentik/media:/media
+      - /srv/authentik/custom-templates:/templates
+    networks:
+      - authentik-internal
+      - proxy
+
+  authentik-worker:
+    image: ghcr.io/goauthentik/server:latest
+    container_name: authentik-worker
+    restart: unless-stopped
+    command: worker
+    env_file: .env
+    depends_on:
+      - authentik-postgres
+      - authentik-redis
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /srv/authentik/media:/media
+      - /srv/authentik/certs:/certs
+      - /srv/authentik/custom-templates:/templates
+    networks:
+      - authentik-internal
+
+networks:
+  authentik-internal:
+    driver: bridge
+  proxy:
+    external: true

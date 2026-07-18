@@ -1,0 +1,58 @@
+- Core:
+    - Nextcloud:
+        icon: nextcloud.png
+        href: https://cloud.alex-ashworth.com
+        description: Files, photos, calendar, contacts, WebDAV
+
+    - Gitea:
+        icon: gitea.png
+        href: https://gitea.alex-ashworth.com
+        description: Git hosting and code projects
+
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: https://uptime.alex-ashworth.com
+        description: Service monitoring
+
+    - ntfy:
+        icon: ntfy.png
+        href: https://ntfy.alex-ashworth.com
+        description: Notifications and alerts
+
+- Telemetry:
+    - Grafana:
+        icon: grafana.png
+        href: https://grafana.alex-ashworth.com
+        description: Dashboards
+
+    - Prometheus:
+        icon: prometheus.png
+        href: https://prometheus.alex-ashworth.com
+        description: Metrics database
+
+    - Loki:
+        icon: loki.png
+        href: https://loki.alex-ashworth.com
+        description: Log storage
+
+- Infrastructure:
+    - Pi-hole:
+        icon: pi-hole.png
+        href: https://pihole.alex-ashworth.com
+        description: DNS filtering and admin UI
+
+    - Backrest:
+        icon: backrest.png
+        href: https://backrest.alex-ashworth.com
+        description: Restic backup management
+
+- Security:
+    - authentik:
+        icon: authentik.png
+        href: https://auth.alex-ashworth.com
+        description: Identity provider
+
+    - Nessus:
+        icon: nessus.png
+        href: https://nessus.alex-ashworth.com
+        description: Vulnerability scanner

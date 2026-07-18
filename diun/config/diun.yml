@@ -1,0 +1,14 @@
+db:
+  path: /data/diun.db
+
+watch:
+  workers: 10
+  schedule: "0 */12 * * *"
+  jitter: 30s
+  firstCheckNotif: false
+  runOnStartup: true
+
+providers:
+  docker:
+    watchStopped: true
+    watchByDefault: true

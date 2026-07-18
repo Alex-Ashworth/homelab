@@ -1,0 +1,8 @@
+title: Alex Homelab
+description: Private homelab dashboard
+theme: dark
+color: slate
+target: _self
+disableCollapse: true
+hideVersion: true
+statusStyle: dot
