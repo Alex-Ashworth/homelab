@@ -12,16 +12,17 @@ services:
       - ./certbot/www:/var/www/certbot:ro
       - ./certbot/conf:/etc/letsencrypt
       - ./logs:/var/log/nginx
+      - ./sites/:/srv/sites:ro
     networks:
       - proxy
 
   certbot:
-    image: certbot/certbot:latest
+    image: certbot/dns-cloudflare:latest
     container_name: certbot
     profiles: ["manual"]
     volumes:
-      - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
+      - ./secrets/cloudflare.ini:/cloudflare.ini:ro
 
 networks:
   proxy:

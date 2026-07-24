@@ -1,0 +1,26 @@
+/proc
+/sys
+/dev
+/run
+/tmp
+/var/tmp
+/lost+found
+
+# Do not back up mounted media by accident
+/mnt
+/media
+
+# Do not back up the backup repo into itself
+/srv/storage/backups/restic
+
+# Docker runtime internals; back up bind-mounted app data and compose files instead
+/var/lib/docker/overlay2
+/var/lib/docker/containers
+/var/lib/docker/image
+/var/lib/docker/buildkit
+/var/lib/docker/tmp
+
+# User cache/trash
+/home/*/.cache
+/home/*/.local/share/Trash
+/root/.cache

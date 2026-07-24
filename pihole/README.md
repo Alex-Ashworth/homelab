@@ -1,35 +1,13 @@
-# Pi-hole + Unbound
+# Pi-hole
 
-## Overview
+Pi-hole provides LAN DNS with Unbound as its upstream resolver.
 
-This directory documents the Pi-hole and Unbound DNS stack running on the M920 homelab host.
+**Runtime state:** Pi-hole and Unbound were running on 2026-07-23.
 
-Pi-hole provides LAN DNS filtering and ad blocking. Unbound runs as the recursive DNS resolver behind Pi-hole. Pi-hole receives DNS queries from LAN clients, filters blocked domains, and forwards allowed queries to Unbound. Unbound then performs recursive DNS resolution instead of forwarding directly to a public DNS provider.
+## Components and networks
 
-The Pi-hole admin interface is exposed through nginx using a clean HTTPS subdomain, but access is restricted to Tailscale clients only.
+Pi-hole and Unbound use the private `dns` network; Pi-hole also joins the shared `proxy` network for Nginx access.
 
-## Service Role
+## Access and persistence
 
-| Service | Purpose |
-|---|---|
-| Pi-hole | DNS sinkhole, ad blocking, query logging, local DNS management |
-| Unbound | Recursive DNS resolver used as Pi-hole's upstream resolver |
-| nginx | HTTPS reverse proxy for the Pi-hole admin web interface |
-| Tailscale | Private access layer for the admin interface |
-
-## Directory Layout
-
-```text
-/srv/pihole/
-  compose.yml
-  .env
-  .gitignore
-  etc-pihole/
-  etc-dnsmasq.d/
-  unbound/
-
-/srv/pihole/unbound/
-  unbound configuration and persistent data
-
-/srv/nginx/conf.d/
-  pihole.alex-ashworth.com.conf
+DNS is bound only to the LAN on port 53 for TCP and UDP. The UI binds to loopback port 8081 and the `pihole` vhost is restricted to Tailscale and the proxy subnet. Pi-hole, dnsmasq, and Unbound configuration paths are mounted for persistent state or configuration; secret values are not documented here.

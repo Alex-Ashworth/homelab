@@ -8,14 +8,13 @@ main() {
   local domain="${2:-}"
   local email="${3:-}"
 
-
   [[ -z "$cert" ]] && read -rp "Enter certificate name: " cert
   [[ -z "$domain" ]] && read -rp "Enter domain name: " domain
   [[ -z "$email" ]] && read -rp "Enter email address: " email
-  
+
   cd "$NGINX_DIR"
 
-  docker copmpose run --rm certbot certonly \
+  docker compose run --rm certbot certonly \
     --cert-name "$cert" \
     --dns-cloudflare \
     --dns-cloudflare-credentials /cloudflare.ini \

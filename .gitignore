@@ -1,4 +1,5 @@
-# OS / editor
+# OS and editor files
+.git-prebaseline-*/
 .vscode/
 .idea/
 *.swp
@@ -7,11 +8,13 @@
 *.bak
 *.tmp
 
-# Secrets / environment files
-.env
-.env.*
-!.env.example
-!.env.sample
+# Secrets and environment files
+**/.env
+**/.env.*
+**/*.env
+**/*.env.*
+!**/.env.example
+!**/.env.sample
 
 *.pem
 *.key
@@ -19,97 +22,30 @@
 *.p12
 *.pfx
 *.jks
-id_*
-*.pub
 *.ppk
+id_*
 
-.ssh/
-ssh/
-secrets/
-secret/
-credentials/
-private/
-keys/
-
-*_secret*
-*_secrets*
-*secret*
-*secrets*
-*credential*
-*credentials*
-*password*
-*passwd*
-*token*
-*apikey*
-*api_key*
+**/.ssh/
+**/ssh/
+**/secret/
+**/secrets/
+**/credentials/
+**/private/
+**/keys/
 
 auth.json
 credentials.json
 service-account.json
+*.htpasswd
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-
-.venv/
-venv/
-env/
-ENV/
-
-pip-wheel-metadata/
-*.egg-info/
-.eggs/
-build/
-dist/
-wheels/
-.pyinstaller/
-
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-.coverage.*
-htmlcov/
-
-.ipynb_checkpoints/
-
-# JavaScript / Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-.npm/
-.pnpm-store/
-coverage/
-.nyc_output/
-
-.next/
-.nuxt/
-.svelte-kit/
-vite.config.*.timestamp-*
-vite.config.*.mjs.timestamp-*
-
-dist/
-build/
-
-# HTML / CSS / frontend artifacts
-.cache/
-.parcel-cache/
-*.map
-
-# Bash / shell scripts
+# Databases, logs, and process state
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
 *.log
 *.pid
-*.local
-*.override
-.history
-.bash_history
-.zsh_history
-
-# Project-local generated files
+*.lock
 logs/
 tmp/
 temp/
@@ -119,6 +55,88 @@ output/
 outputs/
 artifacts/
 
-# Custom
-to-do.md
+# Language and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+build/
+dist/
+wheels/
+.pyinstaller/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
 
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.pnpm-store/
+coverage/
+.nyc_output/
+.next/
+.nuxt/
+.svelte-kit/
+vite.config.*.timestamp-*
+vite.config.*.mjs.timestamp-*
+.parcel-cache/
+*.map
+
+# Shell and local overrides
+*.local
+*.override
+.history
+.bash_history
+.zsh_history
+
+# Protected and bulk storage. Never track or inspect service contents.
+/storage/**
+
+# Service runtime state
+/authentik/postgres/
+/authentik/redis/
+/authentik/media/
+/authentik/certs/
+/backrest/data/
+/backrest/config/
+/backrest/cache/
+/backrest/restore/
+/crowdsec/data/
+/crowdsec/config/*
+!/crowdsec/config/acquis.yaml
+/diun/data/
+/grafana/data/
+/homepage/config/
+/nextcloud/db/
+/nextcloud/redis/
+/nextcloud/html/
+/nextcloud/clamav/
+/nginx/certbot/conf/
+/nginx/certbot/www/
+/nginx/logs/
+/ntfy/cache/
+/ntfy/config/user.db
+/pihole/etc-pihole/
+/pihole/etc-dnsmasq.d/
+/pihole/unbound/dev/
+/pihole/unbound/var/
+/prometheus/data/
+/restic/auth/
+/restic/data/
+/uptime-kuma/data/
+
+# Local notes
+to-do.md
